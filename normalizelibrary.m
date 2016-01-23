@@ -59,7 +59,7 @@ Seqs=Seqs(greaterthan10ind);
 
 % normalize to read length (division)
 display('normalizing to read length');
-reflib(isnan(reflib)) = 1;                       % make NaN = 1
+reflib(isnan(reflib)) = mode(reflib(reflib>0));   % make NaN = nonzero mode
 reflib = reflib/readlengths(1);                  % normalize reference library
 lib = lib/readlengths(2);                        % normalize library
 
