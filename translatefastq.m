@@ -139,7 +139,7 @@ iterationsXLS = ceil(size((SeqFreqTable),1)/(1000000));                 % Determ
 p=1;                                                                    % initialize counter
 if iterationsXLS==1
     display('Exporting to excel: one sheet');
-    [status1,message1]=xlswrite(filenameoutput,SeqFreqTable(1:length(SeqFreqTable),:),1); % write excel file--> only 1e6 rows each sheet
+    writecell(SeqFreqTable(1:length(SeqFreqTable),:),filenameoutput, 'Sheet', 1); % write excel file--> only 1e6 rows each sheet
 else
 for w=1:(iterationsXLS)
     warning('off','MATLAB:xlswrite:AddSheet');
@@ -149,9 +149,9 @@ for w=1:(iterationsXLS)
     ind1 = ind2-1e6+1;                                                  % find indexes within Sequence Array
     ind3 = size((SeqFreqTable),1);
     if (ind3-ind1)>(1e6-1)
-        [status2,message2]=xlswrite(filenameoutput,SeqFreqTable(ind1:ind2,:),sheetI);
+        writecell(SeqFreqTable(ind1:ind2,:),filenameoutput,'Sheet',sheetI);
     else
-        [status3,message3]=xlswrite(filenameoutput,SeqFreqTable(ind1:ind3,:),sheetI); % write excel file--> only 1e6 rows each sheet
+        writecell(SeqFreqTable(ind1:ind3,:),filenameoutput,'Sheet',sheetI); % write excel file--> only 1e6 rows each sheet
     end
     p=p+1;                                                              % count up
 end
